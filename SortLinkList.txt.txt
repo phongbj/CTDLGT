@@ -1,0 +1,82 @@
+void swapNV(int x, int y, LIST &l)
+{
+    if (x == y)
+        return;
+    
+    NV *p, *prev;
+    p = l.Head;
+    prev = NULL;
+    while (p != NULL && p -> Luong != x)
+    {
+        prev = p;
+        p = p -> Next;
+    }
+    NV *pX = p;
+    NV *prevX = prev;
+    //------------------------------------------- search y
+    p = l.Head;
+    prev = NULL;
+    while (p != NULL && p -> Luong != y)
+    {
+        prev = p;
+        p = p -> Next;
+    }
+    NV *pY = p;
+    NV *prevY = prev;
+
+    if (pX == NULL || pY == NULL)
+        return;
+
+    NV *temp;
+
+    if (prevX == NULL)
+    {
+        l.Head = pY;
+        prevY -> Next = pX;
+    } 
+        
+    if (prevY == NULL)
+    {
+        l.Head = pX;
+        prevX -> Next = pY;
+    } 
+       
+
+    if (prevX != NULL && prevY != NULL) 
+    {
+        prevX -> Next = pY;
+        prevY -> Next = pX;
+    }
+
+
+    temp = pY -> Next;
+    pY -> Next = pX -> Next;
+    pX -> Next = temp;
+
+}
+
+void SapXepTang(NV *LL, LIST &l)
+{
+    NV *tempNV = l.Head;
+    NV *min;
+    NV *tempNVNext;
+    int n=1;
+    while (tempNV != NULL)
+    {
+
+        min = tempNV;
+        tempNVNext = tempNV ->Next;
+        while (tempNVNext != NULL)
+        {
+            if (tempNV ->Luong > tempNVNext ->Luong){
+                min = tempNVNext;
+            }
+            tempNVNext = tempNVNext ->Next;
+        }
+        swapNV(tempNV ->Luong, min ->Luong, l);
+        tempNV = l.Head;
+        for (int i =0; i < n; i++)
+            tempNV = tempNV -> Next;
+        n++;
+    }
+}
