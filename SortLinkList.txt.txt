@@ -11,9 +11,10 @@ void swapNV(int x, int y, LIST &l)
         prev = p;
         p = p -> Next;
     }
+    // halo xa 
     NV *pX = p;
     NV *prevX = prev;
-    //------------------------------------------- search y
+    //------------------------------------------- search y 
     p = l.Head;
     prev = NULL;
     while (p != NULL && p -> Luong != y)
